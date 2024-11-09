@@ -10,6 +10,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import com.deepdark.lab1.data.FuelCompositionResult
 import com.deepdark.lab1.data.calculateFuelProperties
+import com.deepdark.lab1.utils.roundTo
+import com.deepdark.lab1.utils.roundToNearestDecimal
 
 @Preview(showBackground = true)
 @Composable
@@ -103,12 +105,17 @@ fun FuelInputScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         result?.let {
-            Text("Для палива з компонентним складом:")
-            Text("Коефіцієнти сухої маси: ${it.dryMassComposition}")
-            Text("Коефіцієнти горючої маси: ${it.combustibleMassComposition}")
-            Text("Нижня теплота згоряння (Робоча): ${it.lowerHeatWorking} МДж/кг")
-            Text("Нижня теплота згоряння (Суха): ${it.lowerHeatDry} МДж/кг")
-            Text("Нижня теплота згоряння (Горюча): ${it.lowerHeatCombustible} МДж/кг")
+            Text("Для палива з компонентним складом: ${it.workingMassComposition.roundToNearestDecimal(2)}")
+
+            Text("Коефіцієнт переходу від робочої до сухої маси: ${it.dryMassCoefficient.roundTo(2)}")
+            Text("Коефіцієнт переходу від робочої до горючої маси: ${it.combustibleMassCoefficient.roundTo(2)}")
+
+            Text("Склад сухої маси палива: ${it.dryMassComposition.roundToNearestDecimal(2)}")
+            Text("Склад горючої маси палива: ${it.combustibleMassComposition.roundToNearestDecimal(2)}")
+
+            Text("Нижня теплота згоряння для робочої маси: ${it.lowerHeatWorking.roundTo(2)} МДж/кг")
+            Text("Нижня теплота згоряння для сухої маси: ${it.lowerHeatDry.roundTo(2)} МДж/кг")
+            Text("Нижня теплота згоряння для горючої маси: ${it.lowerHeatCombustible.roundTo(2)} МДж/кг")
         }
     }
 }

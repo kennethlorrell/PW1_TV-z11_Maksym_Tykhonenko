@@ -43,6 +43,16 @@ fun calculateFuelProperties(
     moisture: Double,
     ash: Double
 ): FuelCompositionResult {
+    val workingMassComposition = mapOf(
+        "H" to hydrogen,
+        "C" to carbon,
+        "S" to sulfur,
+        "N" to nitrogen,
+        "O" to oxygen,
+        "M" to moisture,
+        "A" to ash
+    )
+
     val dryMassCoefficient = calculateDryMassCoefficient(moisture)
     val combustibleMassCoefficient = calculateCombustibleMassCoefficient(moisture, ash)
 
@@ -69,6 +79,9 @@ fun calculateFuelProperties(
     val lowerHeatCombustible = calculateHeatForCombustibleMass(lowerHeatWorking, moisture, ash)
 
     return FuelCompositionResult(
+        workingMassComposition = workingMassComposition,
+        dryMassCoefficient = dryMassCoefficient,
+        combustibleMassCoefficient = combustibleMassCoefficient,
         dryMassComposition = dryMassComposition,
         combustibleMassComposition = combustibleMassComposition,
         lowerHeatWorking = lowerHeatWorking,
