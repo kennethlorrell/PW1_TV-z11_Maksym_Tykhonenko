@@ -89,3 +89,34 @@ fun calculateFuelProperties(
         lowerHeatCombustible = lowerHeatCombustible
     )
 }
+
+fun recalculateFuelOilComposition(
+    carbon: Double,
+    hydrogen: Double,
+    oxygen: Double,
+    sulfur: Double,
+    lowerHeatCombustible: Double,
+    moisture: Double,
+    ash: Double,
+    vanadium: Double
+): Map<String, Any> {
+    val conversionFactor = (100 - moisture - ash) / 100
+
+    val carbonWorking = carbon * conversionFactor
+    val hydrogenWorking = hydrogen * conversionFactor
+    val oxygenWorking = oxygen * conversionFactor
+    val sulfurWorking = sulfur * conversionFactor
+    val ashWorking = ash * conversionFactor
+    val vanadiumWorking = vanadium * (100 - moisture) / 100
+    val lowerHeatWorking = lowerHeatCombustible * conversionFactor - (0.025 * moisture)
+
+    return mapOf(
+        "C" to carbonWorking,
+        "H" to hydrogenWorking,
+        "O" to oxygenWorking,
+        "S" to sulfurWorking,
+        "A" to ashWorking,
+        "V" to vanadiumWorking,
+        "LowerHeatWorking" to lowerHeatWorking
+    )
+}

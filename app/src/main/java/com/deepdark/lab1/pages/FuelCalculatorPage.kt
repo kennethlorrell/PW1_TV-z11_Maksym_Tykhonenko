@@ -15,12 +15,12 @@ import com.deepdark.lab1.utils.roundToNearestDecimal
 
 @Preview(showBackground = true)
 @Composable
-fun FuelInputScreenPreview() {
-    FuelInputScreen()
+fun FuelCalculatorPagePreview() {
+    FuelCalculatorPage()
 }
 
 @Composable
-fun FuelInputScreen() {
+fun FuelCalculatorPage() {
     var hydrogen by remember { mutableStateOf("1.9") }
     var carbon by remember { mutableStateOf("21.1") }
     var sulfur by remember { mutableStateOf("2.6") }
@@ -40,7 +40,7 @@ fun FuelInputScreen() {
             .verticalScroll(scrollState),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text("Введіть значення компонентів палива (%)")
+        Text("Введіть значення компонентів палива:")
 
         OutlinedTextField(
             value = hydrogen,
